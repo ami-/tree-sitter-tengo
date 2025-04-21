@@ -1,0 +1,174 @@
+==================
+Basic if statement
+==================
+
+if a < 0 {
+  return -1
+}
+
+---
+
+(source_file
+  (if_statement
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (unary_expression
+          operand: (number_literal))))))
+
+==================
+If with else branch
+==================
+
+if a < 0 {
+  return -1
+} else {
+  return 1
+}
+
+---
+
+(source_file
+  (if_statement
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (unary_expression
+          operand: (number_literal))))
+    alternative: (block
+      (return_statement
+        (number_literal)))))
+
+==================
+If with else if and else branches
+==================
+
+if a < 0 {
+  return -1
+} else if a == 0 {
+  return 0
+} else {
+  return 1
+}
+
+---
+
+(source_file
+  (if_statement
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (unary_expression
+          operand: (number_literal))))
+    alternative: (if_statement
+      condition: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (number_literal))
+      consequence: (block
+        (return_statement
+          (number_literal)))
+      alternative: (block
+        (return_statement
+          (number_literal))))))
+
+==================
+If with initialization statement
+==================
+
+if a := foo(); a < 0 {
+  return -1
+}
+
+---
+
+(source_file
+  (if_statement
+    initialization: (variable_declaration
+      name: (identifier)
+      value: (function_call
+        function: (identifier)
+        arguments: (argument_list)))
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (unary_expression
+          operand: (number_literal))))))
+
+==================
+If with initialization and complex branches
+==================
+
+if val := compute(); val < 0 {
+  return "negative"
+} else if val == 0 {
+  return "zero"
+} else {
+  return "positive"
+}
+
+---
+
+(source_file
+  (if_statement
+    initialization: (variable_declaration
+      name: (identifier)
+      value: (function_call
+        function: (identifier)
+        arguments: (argument_list)))
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (string_literal)))
+    alternative: (if_statement
+      condition: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (number_literal))
+      consequence: (block
+        (return_statement
+          (string_literal)))
+      alternative: (block
+        (return_statement
+          (string_literal))))))
+
+==================
+If with assignment initialization
+==================
+
+if count = getCount(); count > 10 {
+  return true
+}
+
+---
+
+(source_file
+  (if_statement
+    initialization: (assignment_statement
+      left: (identifier)
+      operator: (assignment_operator)
+      right: (function_call
+        function: (identifier)
+        arguments: (argument_list)))
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    consequence: (block
+      (return_statement
+        (identifier)))))

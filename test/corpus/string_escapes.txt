@@ -1,0 +1,303 @@
+==================
+String Escape Sequences
+==================
+
+// Simple escape sequences
+escapes1 := "Line1\nLine2\tTabbed\rCarriage Return"
+escapes2 := "Backslash: \\ Quote: \" Alert: \a Backspace: \b"
+escapes3 := "Form feed: \f Vertical tab: \v"
+escapes4 := "Single quote doesn't need escaping: ' but double quote does: \""
+
+// Hex escapes
+hex_escapes := "\x41\x42\x43 is ABC"
+hex_lowercase := "\x6e\x6f\x77"
+hex_uppercase := "\x4E\x4F\x57"
+
+// Unicode escapes
+unicode := "\u00A9 is copyright, \u2665 is heart"
+unicode_extended := "\U0001F600 is a smiley face emoji"
+
+// Octal escapes
+octal := "\101\102\103 is ABC"
+octal_small := "\12 is newline"
+
+// Mixed escapes
+mixed := "ABC \n \x41 \u0041 \101"
+
+// Raw string with no escape processing
+raw := `Raw string with no escapes: \n \x41 \u0041`
+raw_quotes := `Raw string can contain "quotes" and 'single quotes' without escaping`
+
+// Escapes at string boundaries
+boundary_esc := "\"starts and ends with quotes\""
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal)))
+
+==================
+String and Character Literal Comparisons
+==================
+
+// Different literal types
+str := "This is a string"
+raw := `This is a raw string`
+char := 'A'
+
+// Character literals with different values
+char_ascii := 'a'
+char_digit := '9'
+char_symbol := '+'
+char_unicode := '九'
+
+// Character literals in expressions
+is_digit := '0' <= char && char <= '9'
+
+//more exps
+is_space := char == ' ' || char == '\t' || char == '\n'
+
+// String vs character comparisons
+"A" != 'A'
+
+//char from a string
+"A"[0] == 'A'
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (char_literal)
+        operator: (comparative_operator)
+        right: (identifier))
+      operator: (and_operator)
+      right: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (char_literal))))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (binary_expression
+          left: (identifier)
+          operator: (comparative_operator)
+          right: (char_literal))
+        operator: (or_operator)
+        right: (binary_expression
+          left: (identifier)
+          operator: (comparative_operator)
+          right: (char_literal)))
+      operator: (or_operator)
+      right: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (char_literal))))
+  (comment)
+  (binary_expression
+    left: (string_literal)
+    operator: (comparative_operator)
+    right: (char_literal))
+  (comment)
+  (binary_expression
+    left: (index_expression
+      object: (string_literal)
+      index: (number_literal))
+    operator: (comparative_operator)
+    right: (char_literal)))
+
+==================
+String Escape Edge Cases
+==================
+
+// Empty string with quotes
+quoted_empty := "\"\""
+
+// String with just an escape
+just_escape := "\n"
+
+// Different quotation marks in strings
+quotes_in_string := "Single quote ' within double quotes needs no escaping"
+escaped_quotes := "Double quotes \" need escaping in string literals"
+
+/// Adjacent escape sequences
+adjacent := "\n\t\r\"\\"
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal)))
+
+==================
+String Escape Sequences in Expressions
+==================
+
+// Escape sequences in expressions
+len := len("hello\nworld")
+concat := "hello" + "\n" + "world"
+
+// In a function call
+print("Tab: \t Next Line: \n")
+
+// In array literals
+arr := ["Line1\nLine2", "Tab\tHere", "\u2665"]
+
+// In map literals
+map := {
+  "key\twith\ttabs": "value\nwith\nnewlines",
+  "unicode": "\u00A9 2023"
+}
+
+// In comparisons
+"Line1\nLine2" == "Line1\nLine2"
+"Line1\nLine2" != "Line1\rLine2"
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (string_literal)))))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (string_literal)
+        operator: (additive_operator)
+        right: (string_literal))
+      operator: (additive_operator)
+      right: (string_literal)))
+  (comment)
+  (function_call
+    function: (identifier)
+    arguments: (argument_list
+      (argument
+        (string_literal))))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (string_literal)
+      (string_literal)
+      (string_literal)))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (string_literal)
+        value: (string_literal))
+      (map_pair
+        key: (string_literal)
+        value: (string_literal))))
+  (comment)
+  (binary_expression
+    left: (string_literal)
+    operator: (comparative_operator)
+    right: (string_literal))
+  (binary_expression
+    left: (string_literal)
+    operator: (comparative_operator)
+    right: (string_literal)))

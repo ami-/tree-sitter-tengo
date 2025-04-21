@@ -1,0 +1,373 @@
+==================
+Escape sequences
+==================
+
+// Standard escape sequences
+newline := '\n'
+carriage := '\r'
+tab := '\t'
+backslash := '\\'
+single_quote := '\''
+alert := '\a'
+backspace := '\b'
+form_feed := '\f'
+vertical_tab := '\v'
+
+// Numeric escape sequences
+hex_esc := '\x41'      // 'A'
+unicode_esc := '\u00A9' // '©'
+unicode_extended := '\U0001F600' // '😀'
+octal_esc := '\101'    // 'A'
+
+// Character length
+always_one := len('A')  // Always 1
+also_one := len('😀')   // Also 1 (single character)
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (char_literal)))))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (char_literal)))))
+  (comment))
+
+==================
+Character Literals
+==================
+
+// Basic character literals
+char_a := 'a'
+char_z := 'z'
+char_0 := '0'
+char_9 := '9'
+
+// Special characters
+char_space := ' '
+char_tab := '\t'
+char_newline := '\n'
+char_backslash := '\\'
+char_quote := '\''
+char_dquote := '"'  // No need to escape
+
+// Unicode characters
+char_emoji := '😀'
+char_chinese := '中'
+char_japanese := '日'
+char_korean := '한'
+char_russian := 'Я'
+
+// Character comparisons
+is_digit := '0' <= char && char <= '9'
+is_lower := 'a' <= char && char <= 'z'
+is_upper := 'A' <= char && char <= 'Z'
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (char_literal)
+        operator: (comparative_operator)
+        right: (identifier))
+      operator: (and_operator)
+      right: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (char_literal))))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (char_literal)
+        operator: (comparative_operator)
+        right: (identifier))
+      operator: (and_operator)
+      right: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (char_literal))))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (binary_expression
+        left: (char_literal)
+        operator: (comparative_operator)
+        right: (identifier))
+      operator: (and_operator)
+      right: (binary_expression
+        left: (identifier)
+        operator: (comparative_operator)
+        right: (char_literal)))))
+
+==================
+Character Arithmetic and Conversions
+==================
+
+// Character arithmetic
+next_char := 'a' + 1  // 'b'
+prev_char := 'z' - 1  // 'y'
+uppercase := 'a' - 32 // 'A' (ASCII conversion)
+code_point := 'A'     // 65 in numeric context
+
+// Character casting and type conversions
+char_to_int := int('0') // 48
+int_to_char := char(65) // 'A'
+
+// Character vs byte comparisons
+is_same := 'A' == 65  // True in some languages, depends on Tengo semantics
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (char_literal)
+      operator: (additive_operator)
+      right: (number_literal)))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (char_literal)
+      operator: (additive_operator)
+      right: (number_literal)))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (char_literal)
+      operator: (additive_operator)
+      right: (number_literal)))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (char_literal)))))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (number_literal)))))
+  (comment)
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (char_literal)
+      operator: (comparative_operator)
+      right: (number_literal)))
+  (comment))
+
+==================
+Character Escape Sequences
+==================
+
+// Standard escape sequences
+newline := '\n'
+carriage := '\r'
+tab := '\t'
+backslash := '\\'
+single_quote := '\''
+alert := '\a'
+backspace := '\b'
+form_feed := '\f'
+vertical_tab := '\v'
+
+// Numeric escape sequences
+hex_esc := '\x41'      // 'A'
+unicode_esc := '\u00A9' // '©'
+unicode_extended := '\U0001F600' // '😀'
+octal_esc := '\101'    // 'A'
+
+// Character length
+always_one := len('A')  // Always 1
+also_one := len('😀')   // Also 1 (single character)
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (char_literal))
+  (comment)
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (char_literal)))))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (char_literal)))))
+  (comment))

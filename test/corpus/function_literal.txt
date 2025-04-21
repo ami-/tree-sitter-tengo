@@ -1,0 +1,94 @@
+
+===============================
+Basic function literal
+===============================
+
+my_func := func() {
+  return 42
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list)
+      body: (block
+        (return_statement
+          (number_literal))))))
+
+===============================
+Function with parameters
+===============================
+
+add := func(a, b) {
+  return a + b
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter (identifier))
+        (parameter (identifier)))
+      body: (block
+        (return_statement
+          (binary_expression
+            left: (identifier)
+            operator: (additive_operator)
+            right: (identifier)))))))
+
+===============================
+Function with variadic parameter
+===============================
+
+sum := func(first, ...rest) {
+  return first
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter (identifier))
+        (variadic_parameter (identifier)))
+      body: (block
+        (return_statement
+          (identifier))))))
+
+===============================
+Nested function (closure)
+===============================
+
+adder := func(base) {
+  return func(x) { 
+    return base + x 
+  }
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter (identifier)))
+      body: (block
+        (return_statement
+          (function_literal
+            parameters: (parameter_list
+              (parameter (identifier)))
+            body: (block
+              (return_statement
+                (binary_expression
+                  left: (identifier)
+                  operator: (additive_operator)
+                  right: (identifier))))))))))

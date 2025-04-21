@@ -1,0 +1,112 @@
+
+===============================
+Basic function call
+===============================
+
+result := add(1, 2)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument (number_literal))
+        (argument (number_literal))))))
+
+===============================
+Function call with no arguments
+===============================
+
+result := getRandomNumber()
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list))))
+
+===============================
+Function call with spread argument
+===============================
+
+sum := add([1, 2, 3]...)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument (spread_argument
+          (array_literal
+            (number_literal)
+            (number_literal)
+            (number_literal))))))))
+
+===============================
+Multiple arguments with spread
+===============================
+
+result := add(1, [2, 3]...)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument (number_literal))
+        (argument (spread_argument
+          (array_literal
+            (number_literal)
+            (number_literal))))))))
+
+===============================
+Nested function calls
+===============================
+
+result := outer(inner(1, 2), 3)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument (function_call
+          function: (identifier)
+          arguments: (argument_list
+            (argument (number_literal))
+            (argument (number_literal)))))
+        (argument (number_literal))))))
+
+===============================
+Chained function calls (closure)
+===============================
+
+result := makeAdder(5)(10)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument (number_literal))))
+      arguments: (argument_list
+        (argument (number_literal))))))

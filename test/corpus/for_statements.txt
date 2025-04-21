@@ -1,0 +1,151 @@
+==================
+Classic for loop
+==================
+
+for a := 0; a < 10; a++ {
+  print(a)
+}
+
+---
+
+(source_file
+  (for_statement
+    initialization: (variable_declaration
+      name: (identifier)
+      value: (number_literal))
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    update: (increment_statement
+      expression: (identifier))
+    body: (block
+      (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (identifier)))))))
+
+==================
+For loop with condition only
+==================
+
+for a < 10 {
+  print(a)
+}
+
+---
+
+(source_file
+  (for_statement
+    condition: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (number_literal))
+    body: (block
+      (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (identifier)))))))
+
+==================
+Infinite for loop
+==================
+
+for {
+  if done {
+    break
+  }
+}
+
+---
+
+(source_file
+  (for_statement
+    body: (block
+      (if_statement
+        condition: (identifier)
+        consequence: (block
+          (identifier))))))
+
+==================
+For-in with one variable (array)
+==================
+
+for v in [1, 2, 3] {
+  print(v)
+}
+
+---
+
+(source_file
+  (for_in_statement
+    value: (identifier)
+    iterable: (array_literal
+      (number_literal)
+      (number_literal)
+      (number_literal))
+    body: (block
+      (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (identifier)))))))
+
+==================
+For-in with two variables (array)
+==================
+
+for i, v in [1, 2, 3] {
+  print(i, v)
+}
+
+---
+
+(source_file
+  (for_in_statement
+    key: (identifier)
+    value: (identifier)
+    iterable: (array_literal
+      (number_literal)
+      (number_literal)
+      (number_literal))
+    body: (block
+      (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (identifier))
+          (argument
+            (identifier)))))))
+
+==================
+For-in with map
+==================
+
+for k, v in {k1: 1, k2: 2} {
+  print(k, v)
+}
+
+---
+
+(source_file
+  (for_in_statement
+    key: (identifier)
+    value: (identifier)
+    iterable: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (number_literal))
+      (map_pair
+        key: (identifier)
+        value: (number_literal)))
+    body: (block
+      (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument
+            (identifier))
+          (argument
+            (identifier)))))))

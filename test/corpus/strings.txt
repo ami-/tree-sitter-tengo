@@ -1,0 +1,44 @@
+==================
+String literals
+==================
+
+double_quoted := "hello world"
+backtick_quoted := `hello world`
+empty_double := ""
+empty_backtick := ``
+mixed := ["double quotes", `backtick quotes`]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (string_literal)
+      (raw_string_literal))))
+
+==================
+Char literals
+==================
+
+'九' > '9' 
+
+---
+
+(source_file
+  (binary_expression
+    (char_literal)
+    (comparative_operator)
+    (char_literal)))

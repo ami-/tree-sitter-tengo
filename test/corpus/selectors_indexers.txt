@@ -1,0 +1,169 @@
+
+==================
+Simple indexers
+==================
+
+arr := ["one", "two", "three"]
+elem := arr[1]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (string_literal)
+      (string_literal)
+      (string_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (index_expression
+      object: (identifier)
+      index: (number_literal))))
+
+==================
+Simple selectors
+==================
+
+m := {a: 1, b: 2}
+x := m.a
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (number_literal))
+      (map_pair
+        key: (identifier)
+        value: (number_literal))))
+  (variable_declaration
+    name: (identifier)
+    value: (selector_expression
+      object: (identifier)
+      property: (identifier))))
+
+==================
+Chained selectors and indexers
+==================
+
+m := {
+  a: 1,
+  b: [2, 3, 4],
+  c: func() { return 10 }
+}
+v1 := m.a
+v2 := m["b"][1]
+v3 := m.c()
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (number_literal))
+      (map_pair
+        key: (identifier)
+        value: (array_literal
+          (number_literal)
+          (number_literal)
+          (number_literal)))
+      (map_pair
+        key: (identifier)
+        value: (function_literal
+          parameters: (parameter_list)
+          body: (block
+            (return_statement
+              (number_literal)))))))
+  (variable_declaration
+    name: (identifier)
+    value: (selector_expression
+      object: (identifier)
+      property: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (index_expression
+      object: (index_expression
+        object: (identifier)
+        index: (string_literal))
+      index: (number_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (selector_expression
+        object: (identifier)
+        property: (identifier))
+      arguments: (argument_list))))
+
+==================
+Assignments with selectors and indexers
+==================
+
+m.x = 5
+arr[0] = 42
+
+---
+
+(source_file
+  (assignment_statement
+    left: (selector_expression
+      object: (identifier)
+      property: (identifier))
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (index_expression
+      object: (identifier)
+      index: (number_literal))
+    operator: (assignment_operator)
+    right: (number_literal)))
+
+==================
+Array slicing
+==================
+
+arr := [1, 2, 3, 4, 5]
+slice1 := arr[1:3]
+slice2 := arr[2:]
+slice3 := arr[:4]
+slice4 := "hello world"[2:10]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (number_literal)
+      (number_literal)
+      (number_literal)
+      (number_literal)
+      (number_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (slice_expression
+      object: (identifier)
+      start: (number_literal)
+      end: (number_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (slice_expression
+      object: (identifier)
+      start: (number_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (slice_expression
+      object: (identifier)
+      end: (number_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (slice_expression
+      object: (string_literal)
+      start: (number_literal)
+      end: (number_literal))))

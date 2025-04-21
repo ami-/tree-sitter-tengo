@@ -1,0 +1,105 @@
+===============================
+Function literal in return statement
+===============================
+
+createCounter := func() {
+  count := 0
+  return func() {
+    count += 1
+    return count
+  }
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list)
+      body: (block
+        (variable_declaration
+          name: (identifier)
+          value: (number_literal))
+        (return_statement
+          (function_literal
+            parameters: (parameter_list)
+            body: (block
+              (assignment_statement
+                left: (identifier)
+                operator: (assignment_operator)
+                right: (number_literal))
+              (return_statement
+                (identifier)))))))))
+
+===============================
+Function using variadic parameters
+===============================
+
+calculateSumAndProduct := func(first, ...rest) {
+  sum := first
+  for n in rest {
+    sum += n
+  }
+  return sum
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter
+          (identifier))
+        (variadic_parameter
+          (identifier)))
+      body: (block
+        (variable_declaration
+          name: (identifier)
+          value: (identifier))
+        (for_in_statement
+          value: (identifier)
+          iterable: (identifier)
+          body: (block
+            (assignment_statement
+              left: (identifier)
+              operator: (assignment_operator)
+              right: (identifier))))
+        (return_statement
+          (identifier))))))
+
+===============================
+Variadic closure function
+===============================
+
+variadicClosure := func(a) {
+  return func(b, ...c) {
+    return [a, b, c]
+  }
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter
+          (identifier)))
+      body: (block
+        (return_statement
+          (function_literal
+            parameters: (parameter_list
+              (parameter
+                (identifier))
+              (variadic_parameter
+                (identifier)))
+            body: (block
+              (return_statement
+                (array_literal
+                  (identifier)
+                  (identifier)
+                  (identifier))))))))))

@@ -1,0 +1,160 @@
+==================
+Raw String Literals
+==================
+
+// Basic raw strings
+raw1 := `This is a raw string`
+raw2 := `No escape processing: \n \t \r \x41 \u2665`
+raw_empty := ``
+
+// Raw strings with special characters
+raw_quotes := `Contains "double quotes" and 'single quotes'`
+raw_backticks := `Cannot contain backticks directly`
+raw_multiline := `Multiline
+string
+with
+several
+lines`
+
+// Raw strings in expressions
+len_raw := len(`raw string`)
+raw_concat := `first` + `second`
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (function_call
+      function: (identifier)
+      arguments: (argument_list
+        (argument
+          (raw_string_literal)))))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (raw_string_literal)
+      operator: (additive_operator)
+      right: (raw_string_literal))))
+
+==================
+Raw Strings vs Regular Strings
+==================
+
+// Comparison of raw vs regular strings
+str1 := "Line1\nLine2"    // Contains a newline character
+raw1 := `Line1\nLine2`    // Contains the literal characters \n
+
+str2 := "Tab\tCharacter"  // Contains a tab character
+raw2 := `Tab\tCharacter`  // Contains the literal characters \t
+
+str3 := "Double\"Quote"   // Contains a double quote
+raw3 := `Double"Quote`    // Contains a double quote directly
+
+// Comparing raw and regular strings
+str1 != raw1
+str2 != raw2
+"Quote\"" == `Quote"`  // These can be equivalent
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (comment)
+  (binary_expression
+    left: (identifier)
+    operator: (comparative_operator)
+    right: (identifier))
+  (binary_expression
+    left: (identifier)
+    operator: (comparative_operator)
+    right: (identifier))
+  (binary_expression
+    left: (string_literal)
+    operator: (comparative_operator)
+    right: (raw_string_literal))
+  (comment))
+
+==================
+Raw String Use Cases
+==================
+
+// Common use cases for raw strings
+regex := `^[a-zA-Z0-9_]+$`  // Regular expressions
+path := `C:\Windows\System32\drivers`  // Windows paths
+json := `{"name": "value", "array": [1, 2, 3]}`  // JSON data
+query := `SELECT * FROM users WHERE age > 18`  // SQL queries
+html := `<div class="container">
+  <h1>Title</h1>
+  <p>Paragraph</p>
+</div>`  // HTML/XML content
+
+---
+
+(source_file
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (raw_string_literal))
+  (comment))

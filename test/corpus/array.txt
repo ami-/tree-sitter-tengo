@@ -1,0 +1,65 @@
+==================
+Empty array
+==================
+
+arr := []
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal)))
+
+==================
+Simple array
+==================
+
+arr := [1, 2, 3]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (number_literal)
+      (number_literal)
+      (number_literal))))
+
+==================
+Mixed type array
+==================
+
+arr := [1, "hello", 3.14]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (number_literal)
+      (string_literal)
+      (number_literal))))
+
+==================
+Array with trailing comma
+==================
+
+arr := [
+  1,
+  2,
+  3,
+]
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (array_literal
+      (number_literal)
+      (number_literal)
+      (number_literal))))
+

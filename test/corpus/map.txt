@@ -1,0 +1,51 @@
+
+==================
+Maps
+==================
+empty := {}
+person := {name: "John", age: 30}
+nested := {user: {id: 123, roles: ["admin", "user"]}, active: true}
+trailing_comma := {a: 12.34, b: "bar", }
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (string_literal))
+      (map_pair
+        key: (identifier)
+        value: (number_literal))))
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (map_literal
+          (map_pair
+            key: (identifier)
+            value: (number_literal))
+          (map_pair
+            key: (identifier)
+            value: (array_literal
+              (string_literal)
+              (string_literal)))))
+      (map_pair
+        key: (identifier)
+        value: (identifier))))
+  (variable_declaration
+    name: (identifier)
+    value: (map_literal
+      (map_pair
+        key: (identifier)
+        value: (number_literal))
+      (map_pair
+        key: (identifier)
+        value: (string_literal)))))
+

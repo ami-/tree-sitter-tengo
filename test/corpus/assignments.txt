@@ -1,0 +1,198 @@
+==================
+Variable declarations
+==================
+
+sum := a + b
+product := x * y
+text := "prefix_" + name
+
+x := !a
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (identifier)
+      operator: (additive_operator)
+      right: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (identifier)
+      operator: (multiplicative_operator)
+      right: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (string_literal)
+      operator: (additive_operator)
+      right: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (unary_expression
+      operand: (identifier))))
+
+===============================
+Assignment statements
+===============================
+
+a = 5
+b += 10
+c -= 5
+d *= 2
+e /= 3
+f %= 4
+g &= val
+h |= flags
+i ^= mask
+j <<= 2
+k >>= 1
+l &^= mask
+
+---
+
+(source_file
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (identifier))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (identifier))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (identifier))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (identifier)))
+
+===============================
+Variable declaration vs assignment
+===============================
+
+count := 0  // variable declaration
+count = 1   // assignment
+
+result := 5 * 10
+result *= 2
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (number_literal))
+  (comment)
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal))
+  (comment)
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (number_literal)
+      operator: (multiplicative_operator)
+      right: (number_literal)))
+  (assignment_statement
+    left: (identifier)
+    operator: (assignment_operator)
+    right: (number_literal)))
+
+===============================
+Complex assignments
+===============================
+
+//single index
+arr[0] = 42
+
+//single selector
+obj.prop = "value"
+
+//multiple selectors
+obj.sub.prop = "value2"
+
+//index
+matrix[i+1][j-1] = x * y
+
+---
+
+(source_file
+  (comment)
+  (assignment_statement
+    left: (index_expression
+      object: (identifier)
+      index: (number_literal))
+    operator: (assignment_operator)
+    right: (number_literal))
+  (comment)
+  (assignment_statement
+    left: (selector_expression
+      object: (identifier)
+      property: (identifier))
+    operator: (assignment_operator)
+    right: (string_literal))
+  (comment)
+  (assignment_statement
+    left: (selector_expression
+      object: (selector_expression
+        object: (identifier)
+        property: (identifier))
+      property: (identifier))
+    operator: (assignment_operator)
+    right: (string_literal))
+  (comment)
+  (assignment_statement
+    left: (index_expression
+      object: (index_expression
+        object: (identifier)
+        index: (binary_expression
+          left: (identifier)
+          operator: (additive_operator)
+          right: (number_literal)))
+      index: (binary_expression
+        left: (identifier)
+        operator: (additive_operator)
+        right: (number_literal)))
+    operator: (assignment_operator)
+    right: (binary_expression
+      left: (identifier)
+      operator: (multiplicative_operator)
+      right: (identifier))))

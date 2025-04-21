@@ -1,4 +1,3 @@
-
 ==================
 Simple indexers
 ==================
@@ -77,9 +76,11 @@ v3 := m.c()
       (map_pair
         key: (identifier)
         value: (function_literal
+          (func)
           parameters: (parameter_list)
           body: (block
             (return_statement
+              (return)
               (number_literal)))))))
   (variable_declaration
     name: (identifier)

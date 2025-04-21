@@ -109,10 +109,10 @@ is_digit := '0' <= char && char <= '9'
 is_space := char == ' ' || char == '\t' || char == '\n'
 
 // String vs character comparisons
-"A" != 'A'
+h:= "A" != 'A'
 
 //char from a string
-"A"[0] == 'A'
+x:= "A"[0] == 'A'
 
 ---
 
@@ -173,17 +173,21 @@ is_space := char == ' ' || char == '\t' || char == '\n'
         operator: (comparative_operator)
         right: (char_literal))))
   (comment)
-  (binary_expression
-    left: (string_literal)
-    operator: (comparative_operator)
-    right: (char_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (string_literal)
+      operator: (comparative_operator)
+      right: (char_literal)))
   (comment)
-  (binary_expression
-    left: (index_expression
-      object: (string_literal)
-      index: (number_literal))
-    operator: (comparative_operator)
-    right: (char_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (index_expression
+        object: (string_literal)
+        index: (number_literal))
+      operator: (comparative_operator)
+      right: (char_literal))))
 
 ==================
 String Escape Edge Cases
@@ -246,8 +250,8 @@ map := {
 }
 
 // In comparisons
-"Line1\nLine2" == "Line1\nLine2"
-"Line1\nLine2" != "Line1\rLine2"
+h:= "Line1\nLine2" == "Line1\nLine2"
+j:="Line1\nLine2" != "Line1\rLine2"
 
 ---
 
@@ -270,7 +274,7 @@ map := {
       operator: (additive_operator)
       right: (string_literal)))
   (comment)
-  (function_call
+  (function_call_statement
     function: (identifier)
     arguments: (argument_list
       (argument
@@ -293,11 +297,15 @@ map := {
         key: (string_literal)
         value: (string_literal))))
   (comment)
-  (binary_expression
-    left: (string_literal)
-    operator: (comparative_operator)
-    right: (string_literal))
-  (binary_expression
-    left: (string_literal)
-    operator: (comparative_operator)
-    right: (string_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (string_literal)
+      operator: (comparative_operator)
+      right: (string_literal)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (string_literal)
+      operator: (comparative_operator)
+      right: (string_literal))))

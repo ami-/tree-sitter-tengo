@@ -16,13 +16,16 @@ createCounter := func() {
   (variable_declaration
     name: (identifier)
     value: (function_literal
+      (func)
       parameters: (parameter_list)
       body: (block
         (variable_declaration
           name: (identifier)
           value: (number_literal))
         (return_statement
+          (return)
           (function_literal
+            (func)
             parameters: (parameter_list)
             body: (block
               (assignment_statement
@@ -30,6 +33,7 @@ createCounter := func() {
                 operator: (assignment_operator)
                 right: (number_literal))
               (return_statement
+                (return)
                 (identifier)))))))))
 
 ===============================
@@ -50,6 +54,7 @@ calculateSumAndProduct := func(first, ...rest) {
   (variable_declaration
     name: (identifier)
     value: (function_literal
+      (func)
       parameters: (parameter_list
         (parameter
           (identifier))
@@ -60,7 +65,9 @@ calculateSumAndProduct := func(first, ...rest) {
           name: (identifier)
           value: (identifier))
         (for_in_statement
+          (for)
           value: (identifier)
+          (in)
           iterable: (identifier)
           body: (block
             (assignment_statement
@@ -68,6 +75,7 @@ calculateSumAndProduct := func(first, ...rest) {
               operator: (assignment_operator)
               right: (identifier))))
         (return_statement
+          (return)
           (identifier))))))
 
 ===============================
@@ -86,12 +94,15 @@ variadicClosure := func(a) {
   (variable_declaration
     name: (identifier)
     value: (function_literal
+      (func)
       parameters: (parameter_list
         (parameter
           (identifier)))
       body: (block
         (return_statement
+          (return)
           (function_literal
+            (func)
             parameters: (parameter_list
               (parameter
                 (identifier))
@@ -99,6 +110,7 @@ variadicClosure := func(a) {
                 (identifier)))
             body: (block
               (return_statement
+                (return)
                 (array_literal
                   (identifier)
                   (identifier)

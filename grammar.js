@@ -57,10 +57,58 @@ module.exports = grammar({
         ),
       ),
 
+    true: () => "true",
+    false: () => "false",
+    boolean_literal: ($) => choice($.true, $.false),
+
+    // Keywords as terminal rules
+    if: () => "if",
+    else: () => "else",
+    func: () => "func",
+    for: () => "for",
+    in: () => "in",
+    return: () => "return",
+    export: () => "export",
+    import: () => "import",
+    break: () => "break",
+    continue: () => "continue",
+
+    // Built-in functions as terminal rules
+    format: () => "format",
+    len: () => "len",
+    copy: () => "copy",
+    append: () => "append",
+    delete: () => "delete",
+    splice: () => "splice",
+    type_name: () => "type_name",
+    string: () => "string",
+    int: () => "int",
+    bool: () => "bool",
+    float: () => "float",
+    char: () => "char",
+    bytes: () => "bytes",
+    time: () => "time",
+    is_string: () => "is_string",
+    is_int: () => "is_int",
+    is_bool: () => "is_bool",
+    is_float: () => "is_float",
+    is_char: () => "is_char",
+    is_bytes: () => "is_bytes",
+    is_error: () => "is_error",
+    is_undefined: () => "is_undefined",
+    is_function: () => "is_function",
+    is_callable: () => "is_callable",
+    is_array: () => "is_array",
+    is_immutable_array: () => "is_immutable_array",
+    is_map: () => "is_map",
+    is_immutable_map: () => "is_immutable_map",
+    is_iterable: () => "is_iterable",
+    is_time: () => "is_time",
+
     // Statements
     _statement: ($) =>
       choice(
-        $._expression_statement,
+        $.function_call_statement,
         $.variable_declaration,
         $.assignment_statement,
         $.return_statement,
@@ -68,7 +116,9 @@ module.exports = grammar({
         $.for_statement,
         $.for_in_statement,
         $.export_statement,
-        // Add other Tengo statements
+        $.break_statement,
+        $.continue_statement,
+        $.block,
       ),
 
     variable_declaration: ($) =>
@@ -86,20 +136,25 @@ module.exports = grammar({
         "=", // Simple assignment
         ...assignmentOperators, // Compound assignments defined at the top
       ),
+
     return_statement: ($) =>
-      prec.right(-1, seq("return", optional($._expression))),
+      prec.right(-1, seq($.return, optional($._expression))),
+
+    break_statement: ($) => prec.right(-1, seq($.break)),
+
+    continue_statement: ($) => prec.right(-1, seq($.continue)),
 
     // If statement with optional initialization, else-if, and else branches
     if_statement: ($) =>
       seq(
-        "if",
+        $.if,
         field("initialization", optional(seq($._simple_statement, ";"))),
         field("condition", $._expression),
         field("consequence", $.block),
         optional(
           choice(
-            seq("else", field("alternative", $.block)),
-            seq("else", field("alternative", $.if_statement)),
+            seq($.else, field("alternative", $.block)),
+            seq($.else, field("alternative", $.if_statement)),
           ),
         ),
       ),
@@ -112,7 +167,7 @@ module.exports = grammar({
       choice(
         // Classic three-part loop: for init; condition; post {}
         seq(
-          "for",
+          $.for,
           field("initialization", optional($._simple_statement)),
           ";",
           field("condition", optional($._expression)),
@@ -122,12 +177,12 @@ module.exports = grammar({
         ),
         // Condition-only loop: for condition {}
         seq(
-          "for",
+          $.for,
           field("condition", $._expression),
           field("body", $._for_block),
         ),
         // Infinite loop: for {}
-        seq("for", field("body", $._for_block)),
+        seq($.for, field("body", $._for_block)),
       ),
 
     // Special block rule specifically for for statements to resolve ambiguity
@@ -137,12 +192,12 @@ module.exports = grammar({
     // for v in iterable {} or for i, v in iterable {}
     for_in_statement: ($) =>
       seq(
-        "for",
+        $.for,
         choice(
           // Single variable: for v in iterable {}
           seq(
             field("value", $.identifier),
-            "in",
+            $.in,
             field("iterable", $._expression),
           ),
           // Two variables: for i, v in iterable {}
@@ -150,7 +205,7 @@ module.exports = grammar({
             field("key", $.identifier),
             ",",
             field("value", $.identifier),
-            "in",
+            $.in,
             field("iterable", $._expression),
           ),
         ),
@@ -161,7 +216,7 @@ module.exports = grammar({
       choice(
         $.variable_declaration,
         $.assignment_statement,
-        $._expression_statement,
+        $.function_call_statement,
         $.increment_statement,
         $.decrement_statement,
       ),
@@ -172,15 +227,19 @@ module.exports = grammar({
     // Decrement statement (a--)
     decrement_statement: ($) => seq(field("expression", $._expression), "--"),
 
-    variable_declaration: ($) =>
-      seq(field("name", $.identifier), ":=", field("value", $._expression)),
-
-    _expression_statement: ($) => $._expression,
+    // Remove the direct relationship between function calls as expressions and as statements
+    // by making function call statements a separate rule that mimics function calls
+    function_call_statement: ($) =>
+      seq(
+        field("function", $._expression),
+        field("arguments", $.argument_list),
+      ),
 
     _expression: ($) =>
       choice(
         $.unary_expression,
         $.identifier,
+        $.boolean_literal,
         $.number_literal,
         $.string_literal,
         $.raw_string_literal,
@@ -276,22 +335,23 @@ module.exports = grammar({
     or_operator: ($) => "||",
 
     array_literal: ($) =>
-      seq(
-        "[",
-        optional(
-          seq(
-            $._expression,
-            repeat(seq(",", $._expression)),
-            optional(","), // Allow trailing comma
-          ),
+      choice(
+        seq("[", "]"),
+
+        // Non-empty array case
+        seq(
+          "[",
+          $._expression,
+          repeat(seq(",", $._expression)),
+          optional(","), // Allow trailing comma
+          "]",
         ),
-        "]",
       ),
 
     // Map literals
     map_literal: ($) =>
       prec(
-        10,
+        1,
         seq(
           "{",
           optional(
@@ -311,7 +371,7 @@ module.exports = grammar({
     // Function literal definition
     function_literal: ($) =>
       seq(
-        "func",
+        $.func,
         field("parameters", $.parameter_list),
         field("body", $.block),
       ),
@@ -356,7 +416,7 @@ module.exports = grammar({
       prec(
         8, // Same precedence as function calls
         seq(
-          "import",
+          $.import,
           "(",
           field("source", choice($.string_literal, $.raw_string_literal)),
           ")",
@@ -364,7 +424,7 @@ module.exports = grammar({
       ),
 
     // Export statement
-    export_statement: ($) => seq("export", field("value", $._expression)),
+    export_statement: ($) => seq($.export, field("value", $._expression)),
     // Selector expression (accessing object properties with dot notation)
     selector_expression: ($) =>
       prec.left(
@@ -475,9 +535,9 @@ module.exports = grammar({
 
   // Optional: Define conflicts and precedence for ambiguities
   // conflicts: $ => [
-  //   [$.rule1, $.rule2],
+  //  [$.rule1, $.rule2],
   // ],
   // precedence: $ => [
-  //    // Operator precedence rules
+  //   // Operator precedence rules
   // ],
 });

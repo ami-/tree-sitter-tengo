@@ -10,6 +10,7 @@ for a := 0; a < 10; a++ {
 
 (source_file
   (for_statement
+    (for)
     initialization: (variable_declaration
       name: (identifier)
       value: (number_literal))
@@ -20,7 +21,7 @@ for a := 0; a < 10; a++ {
     update: (increment_statement
       expression: (identifier))
     body: (block
-      (function_call
+      (function_call_statement
         function: (identifier)
         arguments: (argument_list
           (argument
@@ -38,12 +39,13 @@ for a < 10 {
 
 (source_file
   (for_statement
+    (for)
     condition: (binary_expression
       left: (identifier)
       operator: (comparative_operator)
       right: (number_literal))
     body: (block
-      (function_call
+      (function_call_statement
         function: (identifier)
         arguments: (argument_list
           (argument
@@ -63,11 +65,14 @@ for {
 
 (source_file
   (for_statement
+    (for)
     body: (block
       (if_statement
+        (if)
         condition: (identifier)
         consequence: (block
-          (identifier))))))
+          (break_statement
+            (break)))))))
 
 ==================
 For-in with one variable (array)
@@ -81,13 +86,15 @@ for v in [1, 2, 3] {
 
 (source_file
   (for_in_statement
+    (for)
     value: (identifier)
+    (in)
     iterable: (array_literal
       (number_literal)
       (number_literal)
       (number_literal))
     body: (block
-      (function_call
+      (function_call_statement
         function: (identifier)
         arguments: (argument_list
           (argument
@@ -105,14 +112,16 @@ for i, v in [1, 2, 3] {
 
 (source_file
   (for_in_statement
+    (for)
     key: (identifier)
     value: (identifier)
+    (in)
     iterable: (array_literal
       (number_literal)
       (number_literal)
       (number_literal))
     body: (block
-      (function_call
+      (function_call_statement
         function: (identifier)
         arguments: (argument_list
           (argument
@@ -132,8 +141,10 @@ for k, v in {k1: 1, k2: 2} {
 
 (source_file
   (for_in_statement
+    (for)
     key: (identifier)
     value: (identifier)
+    (in)
     iterable: (map_literal
       (map_pair
         key: (identifier)
@@ -142,7 +153,7 @@ for k, v in {k1: 1, k2: 2} {
         key: (identifier)
         value: (number_literal)))
     body: (block
-      (function_call
+      (function_call_statement
         function: (identifier)
         arguments: (argument_list
           (argument

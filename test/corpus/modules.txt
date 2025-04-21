@@ -11,16 +11,19 @@ fmt.print(sum(10))
   (variable_declaration
     name: (identifier)
     value: (import_expression
+      (import)
       source: (string_literal)))
-  (function_call
+  (function_call_statement
     function: (selector_expression
       object: (identifier)
       property: (identifier))
     arguments: (argument_list
-      (argument (function_call
-        function: (identifier)
-        arguments: (argument_list
-          (argument (number_literal))))))))
+      (argument
+        (function_call
+          function: (identifier)
+          arguments: (argument_list
+            (argument
+              (number_literal))))))))
 
 ==================
 Module export
@@ -39,11 +42,15 @@ export func(x) {
     name: (identifier)
     value: (number_literal))
   (export_statement
+    (export)
     value: (function_literal
+      (func)
       parameters: (parameter_list
-        (parameter (identifier)))
+        (parameter
+          (identifier)))
       body: (block
         (return_statement
+          (return)
           (binary_expression
             left: (identifier)
             operator: (additive_operator)
@@ -61,4 +68,5 @@ config := import(`./config.tengo`)
   (variable_declaration
     name: (identifier)
     value: (import_expression
+      (import)
       source: (raw_string_literal))))

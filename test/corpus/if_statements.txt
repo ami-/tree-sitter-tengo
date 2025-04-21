@@ -10,12 +10,14 @@ if a < 0 {
 
 (source_file
   (if_statement
+    (if)
     condition: (binary_expression
       left: (identifier)
       operator: (comparative_operator)
       right: (number_literal))
     consequence: (block
       (return_statement
+        (return)
         (unary_expression
           operand: (number_literal))))))
 
@@ -33,16 +35,20 @@ if a < 0 {
 
 (source_file
   (if_statement
+    (if)
     condition: (binary_expression
       left: (identifier)
       operator: (comparative_operator)
       right: (number_literal))
     consequence: (block
       (return_statement
+        (return)
         (unary_expression
           operand: (number_literal))))
+    (else)
     alternative: (block
       (return_statement
+        (return)
         (number_literal)))))
 
 ==================
@@ -61,24 +67,31 @@ if a < 0 {
 
 (source_file
   (if_statement
+    (if)
     condition: (binary_expression
       left: (identifier)
       operator: (comparative_operator)
       right: (number_literal))
     consequence: (block
       (return_statement
+        (return)
         (unary_expression
           operand: (number_literal))))
+    (else)
     alternative: (if_statement
+      (if)
       condition: (binary_expression
         left: (identifier)
         operator: (comparative_operator)
         right: (number_literal))
       consequence: (block
         (return_statement
+          (return)
           (number_literal)))
+      (else)
       alternative: (block
         (return_statement
+          (return)
           (number_literal))))))
 
 ==================
@@ -93,6 +106,7 @@ if a := foo(); a < 0 {
 
 (source_file
   (if_statement
+    (if)
     initialization: (variable_declaration
       name: (identifier)
       value: (function_call
@@ -104,6 +118,7 @@ if a := foo(); a < 0 {
       right: (number_literal))
     consequence: (block
       (return_statement
+        (return)
         (unary_expression
           operand: (number_literal))))))
 
@@ -123,6 +138,7 @@ if val := compute(); val < 0 {
 
 (source_file
   (if_statement
+    (if)
     initialization: (variable_declaration
       name: (identifier)
       value: (function_call
@@ -134,17 +150,23 @@ if val := compute(); val < 0 {
       right: (number_literal))
     consequence: (block
       (return_statement
+        (return)
         (string_literal)))
+    (else)
     alternative: (if_statement
+      (if)
       condition: (binary_expression
         left: (identifier)
         operator: (comparative_operator)
         right: (number_literal))
       consequence: (block
         (return_statement
+          (return)
           (string_literal)))
+      (else)
       alternative: (block
         (return_statement
+          (return)
           (string_literal))))))
 
 ==================
@@ -152,13 +174,14 @@ If with assignment initialization
 ==================
 
 if count = getCount(); count > 10 {
-  return true
+  return a > 0? true: false
 }
 
 ---
 
 (source_file
   (if_statement
+    (if)
     initialization: (assignment_statement
       left: (identifier)
       operator: (assignment_operator)
@@ -171,4 +194,13 @@ if count = getCount(); count > 10 {
       right: (number_literal))
     consequence: (block
       (return_statement
-        (identifier)))))
+        (return)
+        (ternary_expression
+          condition: (binary_expression
+            left: (identifier)
+            operator: (comparative_operator)
+            right: (number_literal))
+          consequence: (boolean_literal
+            (true))
+          alternative: (boolean_literal
+            (false)))))))

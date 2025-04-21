@@ -33,12 +33,14 @@ mixed := ["double quotes", `backtick quotes`]
 Char literals
 ==================
 
-'九' > '9' 
+x:= '九' > '9' 
 
 ---
 
 (source_file
-  (binary_expression
-    (char_literal)
-    (comparative_operator)
-    (char_literal)))
+  (variable_declaration
+    (identifier)
+      (binary_expression
+        (char_literal)
+        (comparative_operator)
+        (char_literal))))

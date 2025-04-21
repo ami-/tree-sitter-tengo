@@ -73,9 +73,9 @@ str3 := "Double\"Quote"   // Contains a double quote
 raw3 := `Double"Quote`    // Contains a double quote directly
 
 // Comparing raw and regular strings
-str1 != raw1
-str2 != raw2
-"Quote\"" == `Quote"`  // These can be equivalent
+w := str1 != raw1
+k := str2 != raw2
+n := "Quote\"" == `Quote"`  // These can be equivalent
 
 ---
 
@@ -106,18 +106,24 @@ str2 != raw2
     value: (raw_string_literal))
   (comment)
   (comment)
-  (binary_expression
-    left: (identifier)
-    operator: (comparative_operator)
-    right: (identifier))
-  (binary_expression
-    left: (identifier)
-    operator: (comparative_operator)
-    right: (identifier))
-  (binary_expression
-    left: (string_literal)
-    operator: (comparative_operator)
-    right: (raw_string_literal))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (identifier)
+      operator: (comparative_operator)
+      right: (identifier)))
+  (variable_declaration
+    name: (identifier)
+    value: (binary_expression
+      left: (string_literal)
+      operator: (comparative_operator)
+      right: (raw_string_literal)))
   (comment))
 
 ==================

@@ -1,0 +1,64 @@
+==================
+Module import and export
+==================
+
+sum := import("./sum")
+fmt.print(sum(10))
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (import_expression
+      source: (string_literal)))
+  (function_call
+    function: (selector_expression
+      object: (identifier)
+      property: (identifier))
+    arguments: (argument_list
+      (argument (function_call
+        function: (identifier)
+        arguments: (argument_list
+          (argument (number_literal))))))))
+
+==================
+Module export
+==================
+
+base := 5
+
+export func(x) {
+  return x + base
+}
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (number_literal))
+  (export_statement
+    value: (function_literal
+      parameters: (parameter_list
+        (parameter (identifier)))
+      body: (block
+        (return_statement
+          (binary_expression
+            left: (identifier)
+            operator: (additive_operator)
+            right: (identifier)))))))
+
+==================
+Import with raw string
+==================
+
+config := import(`./config.tengo`)
+
+---
+
+(source_file
+  (variable_declaration
+    name: (identifier)
+    value: (import_expression
+      source: (raw_string_literal))))

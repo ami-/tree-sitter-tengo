@@ -46,7 +46,7 @@ module.exports = grammar({
   // Grammar rules start here
   rules: {
     // The top-level rule, usually representing a whole file
-    source_file: ($) => repeat($._statement), // Example: a file is zero or more statements
+    source_file: ($) => repeat($._statement), // A file is zero or more statements
 
     // Rule for comments (adapt to Tengo's actual comment syntax)
     comment: ($) =>
@@ -67,7 +67,8 @@ module.exports = grammar({
         $.if_statement,
         $.for_statement,
         $.for_in_statement,
-        // Add other Tengo statements: import, etc.
+        $.export_statement,
+        // Add other Tengo statements
       ),
 
     variable_declaration: ($) =>
@@ -176,7 +177,6 @@ module.exports = grammar({
 
     _expression_statement: ($) => $._expression,
 
-    // Expressions (very basic examples - MUST be expanded significantly for Tengo)
     _expression: ($) =>
       choice(
         $.unary_expression,
@@ -191,6 +191,7 @@ module.exports = grammar({
         $.map_literal, // Map literals
         $.function_literal, // Function literals/values
         $.function_call, // Function calls
+        $.import_expression, // Module import expression
         $.selector_expression, // Object property access with dot notation
         $.index_expression, // Array/map index access with square brackets
         $.slice_expression, // Array/string slicing
@@ -350,6 +351,20 @@ module.exports = grammar({
         ),
       ),
 
+    // Module import expression
+    import_expression: ($) =>
+      prec(
+        8, // Same precedence as function calls
+        seq(
+          "import",
+          "(",
+          field("source", choice($.string_literal, $.raw_string_literal)),
+          ")",
+        ),
+      ),
+
+    // Export statement
+    export_statement: ($) => seq("export", field("value", $._expression)),
     // Selector expression (accessing object properties with dot notation)
     selector_expression: ($) =>
       prec.left(

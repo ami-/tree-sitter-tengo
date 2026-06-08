@@ -1,1 +1,1 @@
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = "*.tengo", command = "set filetype=tengo" })
+vim.filetype.add({ extension = { tengo = 'tengo' } })

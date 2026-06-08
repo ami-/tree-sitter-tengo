@@ -1,8 +1,11 @@
 # tree-sitter-tengo
-
 Is an experiment in [tree-sitter](https://tree-sitter.github.io/tree-sitter/index.html), building a grammar for [tengo](https://github.com/d5/tengo) language.
 
 It is based on [v2.17.0 of tengo](https://github.com/d5/tengo/tree/v2.17.0).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Developer tooling for the [Tengo](https://github.com/d5/tengo) scripting language.
 
 ### status
 Work in progress.
